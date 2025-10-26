@@ -1,20 +1,17 @@
-import pandas
+import pandas as pd
 import streamlit as st
 import firebase_admin
 from firebase_admin import credentials, firestore
 
-# Load secrets
-cred_dict = st.secrets["firebase"].copy()  # make a copy
-
-# Fix private_key newlines
+cred_dict = st.secrets["firebase"].copy()
 cred_dict["private_key"] = cred_dict["private_key"].replace("\\n", "\n")
 
-# Initialize Firebase app
 if not firebase_admin._apps:
     cred = credentials.Certificate(cred_dict)
     firebase_admin.initialize_app(cred)
 
 db = firestore.client()
+
 
 # ---------------------- FETCH FIRESTORE DATA ----------------------
 def fetch_transactions():
