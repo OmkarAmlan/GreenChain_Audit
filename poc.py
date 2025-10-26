@@ -1,17 +1,13 @@
 import streamlit as st
+import pandas as pd
 import firebase_admin
 from firebase_admin import credentials, firestore
-import pandas as pd
 
-# Load secrets
-cred_dict = st.secrets["firebase"].copy()  # make a copy
+# Load Firebase credentials from Streamlit secrets
+cred_dict = st.secrets["firebase"]
+cred = credentials.Certificate(cred_dict)
 
-# Fix private_key newlines
-cred_dict["private_key"] = cred_dict["private_key"].replace("\\n", "\n")
-
-# Initialize Firebase app
 if not firebase_admin._apps:
-    cred = credentials.Certificate(cred_dict)
     firebase_admin.initialize_app(cred)
 
 db = firestore.client()
