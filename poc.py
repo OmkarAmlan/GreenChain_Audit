@@ -3,7 +3,7 @@ import streamlit as st
 import firebase_admin
 from firebase_admin import credentials, firestore
 
-cred_dict = st.secrets["firebase"].copy()
+cred_dict = st.secrets["firebase"]
 cred_dict["private_key"] = cred_dict["private_key"].replace("\\n", "\n")
 
 if not firebase_admin._apps:
