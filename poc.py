@@ -1,10 +1,12 @@
 import streamlit as st
+import pandas as pd
 import firebase_admin
 from firebase_admin import credentials, firestore
-import pandas as pd
 
-# ---------------------- FIREBASE INITIALIZATION ----------------------
-cred = credentials.Certificate("ethonline-greenchain-firebase-adminsdk-fbsvc-25d8d385e8.json")
+# Load Firebase credentials from Streamlit secrets
+cred_dict = st.secrets["firebase"]
+cred = credentials.Certificate(cred_dict)
+
 if not firebase_admin._apps:
     firebase_admin.initialize_app(cred)
 
